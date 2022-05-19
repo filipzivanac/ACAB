@@ -1,0 +1,11 @@
+package KieRule;
+import vg.model.*;
+
+rule "Massive riot"
+
+when 
+incidentObject : Incident(criminals > 20);
+then
+incidentObject.setCops(10);
+end;
+
