@@ -1,0 +1,98 @@
+<div class="centeringContainer">
+  <form class="incidentForm">
+    <mat-form-field class="incidentField" appearance="standard">
+      <mat-label>Country</mat-label>
+      <input
+        [(ngModel)]="csr.x500Name.country"
+        name="country"
+        matInput
+        class="incidentInput"
+        placeholder="RS"
+      />
+      <mat-hint>Input your Country name</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="incidentField" appearance="standard">
+      <mat-label>State</mat-label>
+      <input
+        [(ngModel)]="csr.x500Name.state"
+        name="state"
+        matInput
+        class="incidentInput"
+        placeholder="Juznobacki okrug"
+      />
+      <mat-hint>Input your State name</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="incidentField" appearance="standard">
+      <mat-label>Locality</mat-label>
+      <input
+        [(ngModel)]="csr.x500Name.locale"
+        name="locality"
+        matInput
+        class="incidentInput"
+        placeholder="Novi Sad"
+      />
+      <mat-hint>Input your Locality</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="incidentField" appearance="standard">
+      <mat-label>Organization</mat-label>
+      <input
+        [(ngModel)]="csr.x500Name.organization"
+        name="organization"
+        matInput
+        class="incidentInput"
+        placeholder="Fakultet tehnickih nauka"
+      />
+      <mat-hint>Input your Organization</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="incidentField" appearance="standard">
+      <mat-label>Organizational Unit</mat-label>
+      <input
+        [(ngModel)]="csr.x500Name.organizationUnit"
+        name="organizationalUnit"
+        matInput
+        class="incidentInput"
+        placeholder="Departman za elektroteniku i racunarstvo"
+      />
+      <mat-hint>Input your Organizational Unit</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="incidentField" appearance="standard">
+      <mat-label>Common Name</mat-label>
+      <input
+        [(ngModel)]="csr.x500Name.commonName"
+        name="commonName"
+        matInput
+        class="incidentInput"
+        placeholder="Dusan Hajduk"
+      />
+      <mat-hint>Input your Common Name</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="incidentField" appearance="standard">
+      <mat-label>Email</mat-label>
+      <input
+        [(ngModel)]="csr.x500Name.email"
+        name="email"
+        matInput
+        class="incidentInput"
+        placeholder="hajduk.dusan@yahoo.com"
+      />
+      <mat-hint>Enter the email</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="incidentField" appearance="standard">
+      <mat-label>Certificate Purpose</mat-label>
+      <mat-select
+        class="incidentInput"
+        [(ngModel)]="csr.purpose"
+        name="purpose"
+      >
+        <mat-option
+          *ngFor="let purpose of certificatePurposeLabels; let i=index"
+          [value]="i"
+          >{{ purpose }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <button mat-stroked-button (click)="generateCSR()" color="primary">
+      Send
+    </button>
+  </form>
+</div>
