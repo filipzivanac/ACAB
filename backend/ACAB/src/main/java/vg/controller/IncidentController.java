@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import vg.dto.IncidentDTO;
 import vg.model.Incident;
+import vg.model.PoliceResponseType;
 import vg.service.IncidentService;
 
 @RestController
@@ -17,8 +19,8 @@ public class IncidentController {
 	private IncidentService service;
 	
 	@PostMapping("/getResponse")
-	public ResponseEntity<Incident> getResponse(@RequestBody Incident incident){
+	public ResponseEntity<PoliceResponseType> getResponse(@RequestBody IncidentDTO incident){
 		Incident i = service.getIncident(incident);
-		return new ResponseEntity<Incident>(i, HttpStatus.OK);
+		return new ResponseEntity<PoliceResponseType>(i.getResponse(), HttpStatus.OK);
 	}
 }

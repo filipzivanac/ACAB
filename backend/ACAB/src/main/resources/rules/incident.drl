@@ -53,14 +53,44 @@ end;
 rule "Calculate escalation"
 
 when 
-	$incidentObject : Incident(response==null );
+	$incidentObject : Incident(response==null);
 then
 	modify($incidentObject){setEscalation(
-	$incidentObject.getCriminals()*$incidentObject.getWeapon().coef/$incidentObject.getCops())};
+	3*$incidentObject.getCriminals()*$incidentObject.getWeapon().coef/$incidentObject.getCops() + $incidentObject.getAllreadyUsedPoliceResponse().limit)};
+
 end;
 
+rule "Calculate escalation to Verbalization"
+when 
+	$incidentObject : Incident(escalation != null && escalation>=PoliceResponseType.PRESENCE.limit && escalation<PoliceResponseType.VERBALIZATION.limit);
+then
+	modify($incidentObject){setResponse(PoliceResponseType.VERBALIZATION)};
 
+end;
 
+rule "Calculate escalation to Empty Hand Control"
+when 
+	$incidentObject : Incident(escalation != null && escalation>=PoliceResponseType.VERBALIZATION.limit && escalation<PoliceResponseType.EMPTY_HAND_CONTROL.limit);
+then
+	modify($incidentObject){setResponse(PoliceResponseType.EMPTY_HAND_CONTROL)};
+
+end;
+
+rule "Calculate escalation to Less Lethal Methods"
+when 
+	$incidentObject : Incident(escalation != null && escalation>=PoliceResponseType.EMPTY_HAND_CONTROL.limit && escalation<PoliceResponseType.LESS_LETHAL_METHODS.limit);
+then
+	modify($incidentObject){setResponse(PoliceResponseType.LESS_LETHAL_METHODS)};
+
+end;
+
+rule "Calculate escalation to Lethal Force"
+when 
+	$incidentObject : Incident(escalation != null && escalation>=PoliceResponseType.LESS_LETHAL_METHODS.limit);
+then
+	modify($incidentObject){setResponse(PoliceResponseType.LETHAL_FORCE)};
+
+end;
 
 
 
