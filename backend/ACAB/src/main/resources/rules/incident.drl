@@ -4,8 +4,25 @@ import vg.model.*;
 rule "Massive riot"
 
 when 
-incidentObject : Incident(criminals > 20);
+	$incidentObject : Incident(criminals > 20);
 then
-incidentObject.setCops(10);
+	$incidentObject.setCops(10);
+end;
+
+
+rule "Threat to safety"
+
+when
+	$incidentObject : Incident(suspectThreatIntention == true && (weapon== Incident.Weapon.SHARP|| weapon==Incident.Weapon.FIREARM));
+then
+	modify($incidentObject){setSuspectThreatForLife(true)};
+end;
+
+rule "Lethal force MUST"
+
+when
+	$incidentObject : Incident(suspectThreatForLife == true);
+then
+	modify($incidentObject){setResponse(Incident.Response.LETHAL_FORCE)};
 end;
 

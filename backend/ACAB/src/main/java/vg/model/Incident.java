@@ -14,5 +14,8 @@ public class Incident {
 	private int criminals;
 	private WeaponType weapon;
 	private PoliceResponseType allreadyUsedPoliceResponse;
+	private Boolean suspectThreatForLife;
 	private Boolean suspectThreat;
+	private Boolean suspectThreatIntention;
+	private PoliceResponseType response;
 }
