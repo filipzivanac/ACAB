@@ -50,3 +50,17 @@ then
 	modify($incidentObject){setResponse(PoliceResponseType.LESS_LETHAL_METHODS)};
 end;
 
+rule "Calculate escalation"
+
+when 
+	$incidentObject : Incident(response==null );
+then
+	modify($incidentObject){setEscalation(
+	$incidentObject.getCriminals()*$incidentObject.getWeapon().coef/$incidentObject.getCops())};
+end;
+
+
+
+
+
+

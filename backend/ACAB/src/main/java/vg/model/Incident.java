@@ -20,4 +20,5 @@ public class Incident {
 	private PoliceResponseType response;
 	private Boolean cooperates;
 	private Boolean responseWorked;
+	private double escalation;
 }
