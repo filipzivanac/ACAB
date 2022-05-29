@@ -15,7 +15,7 @@
 	<description>School project</description>
 	<properties>
 		<java.version>11</java.version>
-		<drools-version>7.15.0.Final</drools-version>
+		<drools-version>7.70.0.Final</drools-version>
 	</properties>
 	<dependencies>
 		<dependency>
