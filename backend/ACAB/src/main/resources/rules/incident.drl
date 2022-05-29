@@ -1,19 +1,19 @@
 package KieRule;
 import vg.model.*;
 
-rule "Massive riot"
 
-when 
-	$incidentObject : Incident(criminals > 20);
-then
-	$incidentObject.setCops(10);
-end;
-
-
-rule "Threat to safety"
+rule "Response worked"
 
 when
-	$incidentObject : Incident(suspectThreatIntention == true && (weapon== Incident.Weapon.SHARP|| weapon==Incident.Weapon.FIREARM));
+	$incidentObject : Incident(responseWorked == true, $pf:allreadyUsedPoliceResponse);
+then
+	modify($incidentObject){setResponse($pf)};
+end;
+
+rule "Threat for life safety"
+
+when
+	$incidentObject : Incident(suspectThreatIntention == true && (weapon== WeaponType.SHARP || weapon==WeaponType.FIREARM) && responseWorked == false);
 then
 	modify($incidentObject){setSuspectThreatForLife(true)};
 end;
@@ -23,6 +23,30 @@ rule "Lethal force MUST"
 when
 	$incidentObject : Incident(suspectThreatForLife == true);
 then
-	modify($incidentObject){setResponse(Incident.Response.LETHAL_FORCE)};
+	modify($incidentObject){setResponse(PoliceResponseType.LETHAL_FORCE)};
+end;
+
+rule "Does not cooperate"
+
+when 
+	$incidentObject : Incident(allreadyUsedPoliceResponse == PoliceResponseType.VERBALIZATION && responseWorked == false);
+then 
+	modify($incidentObject){setCooperates(false)};
+end;
+
+rule "Threat for safety"
+
+when
+	$incidentObject : Incident( cooperates == false && suspectThreatIntention == true);
+then 
+	modify($incidentObject){setSuspectThreatForSafety(true)};
+end;
+
+rule "Less leathal MUST"
+
+when
+	$incidentObject : Incident(suspectThreatForSafety == true  && (weapon ==  WeaponType.BLUNT || weapon == WeaponType.NONE));
+then
+	modify($incidentObject){setResponse(PoliceResponseType.LESS_LETHAL_METHODS)};
 end;
 
