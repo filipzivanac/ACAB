@@ -1,0 +1,39 @@
+{"incidents":[
+	{
+	"escalation":80,
+	"responseUsed": 4
+	},
+	{
+	"escalation":79,
+	"responseUsed": 3
+	},
+	{
+	"escalation":60,
+	"responseUsed": 3
+	},
+	{
+	"escalation":59,
+	"responseUsed": 2
+	},
+	{
+	"escalation":40,
+	"responseUsed": 2
+	},
+	{
+	"escalation":39,
+	"responseUsed": 1
+	},
+	{
+	"escalation":20,
+	"responseUsed": 1
+	},
+	
+	{
+	"escalation":19,
+	"responseUsed": 0
+	},
+	{
+	"escalation":0,
+	"responseUsed": 0
+	}
+]}

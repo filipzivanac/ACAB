@@ -2,6 +2,19 @@ package KieRule;
 import vg.model.*;
 
 
+
+rule "Set Lethal force limits"
+
+when
+	$limiter : ResponseLimiters(lethalForceMinimum == null)
+	Double($minimum : doubleValue) from accumulate(
+	PastIncident(responseUsed == PoliceResponseType.LETHAL_FORCE , $m : escalation),
+	min($m)
+	)
+then
+	modify($limiter){setLethalForceMinimum($minimum)};
+end;
+
 rule "Response worked"
 
 when
