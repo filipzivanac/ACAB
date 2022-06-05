@@ -15,6 +15,68 @@ then
 	modify($limiter){setLethalForceMinimum($minimum)};
 end;
 
+rule "Set Less lethal methods limits"
+
+when
+	$limiter : ResponseLimiters(lessLethalMinimum == null && lessLethalMaximum== null)
+	Double($minimum : doubleValue) from accumulate(
+	PastIncident(responseUsed == PoliceResponseType.LESS_LETHAL_METHODS , $m : escalation),
+	min($m)
+	)
+	Double($maximum : doubleValue) from accumulate(
+	PastIncident(responseUsed == PoliceResponseType.LESS_LETHAL_METHODS , $m : escalation),
+	max($m)
+	)
+then
+	modify($limiter){setLessLethalMinimum($minimum), setLessLethalMaximum($maximum)};
+end;
+
+rule "Set Empty Hand control limits"
+
+when
+	$limiter : ResponseLimiters(emptyHandMinimum == null && emptyHandMaximum == null)
+	Double($minimum : doubleValue) from accumulate(
+	PastIncident(responseUsed == PoliceResponseType.EMPTY_HAND_CONTROL , $m : escalation),
+	min($m)
+	)
+	Double($maximum : doubleValue) from accumulate(
+	PastIncident(responseUsed == PoliceResponseType.EMPTY_HAND_CONTROL , $m : escalation),
+	max($m)
+	)
+then
+	modify($limiter){setEmptyHandMinimum($minimum), setEmptyHandMaximum($maximum)};
+end;
+
+
+rule "Set Verbalization limits"
+
+when
+	$limiter : ResponseLimiters(verbalizationMinimum== null && verbalizationMaximum == null)
+	Double($minimum : doubleValue) from accumulate(
+	PastIncident(responseUsed == PoliceResponseType.VERBALIZATION , $m : escalation),
+	min($m)
+	)
+	Double($maximum : doubleValue) from accumulate(
+	PastIncident(responseUsed == PoliceResponseType.VERBALIZATION , $m : escalation),
+	max($m)
+	)
+then
+	modify($limiter){setVerbalizationMinimum($minimum), setVerbalizationMaximum($maximum)};
+end;
+
+rule "Set Presence limits"
+
+when
+	$limiter : ResponseLimiters(presenceMaximum == null)
+	Double($maximum : doubleValue) from accumulate(
+	PastIncident(responseUsed == PoliceResponseType.PRESENCE , $m : escalation),
+	max($m)
+	)
+then
+	modify($limiter){setPresenceMaximum($maximum)};
+end;
+
+
 rule "Response worked"
 
 when
@@ -73,35 +135,45 @@ then
 
 end;
 
-rule "Calculate escalation to Verbalization"
+rule "Calculate escalation for Verbalization"
 when 
-	$incidentObject : Incident(escalation != null && escalation>=PoliceResponseType.PRESENCE.limit && escalation<PoliceResponseType.VERBALIZATION.limit);
+	$limiter : ResponseLimiters($min : verbalizationMinimum, $max : verbalizationMaximum)
+	$incidentObject : Incident(escalation != null && escalation>=$min && escalation<$max)
 then
 	modify($incidentObject){setResponse(PoliceResponseType.VERBALIZATION)};
-
 end;
 
 rule "Calculate escalation to Empty Hand Control"
 when 
-	$incidentObject : Incident(escalation != null && escalation>=PoliceResponseType.VERBALIZATION.limit && escalation<PoliceResponseType.EMPTY_HAND_CONTROL.limit);
+	$limiter : ResponseLimiters($min : emptyHandMinimum, $max : emptyHandMaximum)
+	$incidentObject : Incident(escalation != null && escalation>=$min && escalation<$max)
 then
 	modify($incidentObject){setResponse(PoliceResponseType.EMPTY_HAND_CONTROL)};
-
 end;
 
-rule "Calculate escalation to Less Lethal Methods"
+rule "Calculate escalation to Less Lethal methods Control"
 when 
-	$incidentObject : Incident(escalation != null && escalation>=PoliceResponseType.EMPTY_HAND_CONTROL.limit && escalation<PoliceResponseType.LESS_LETHAL_METHODS.limit);
+	$limiter : ResponseLimiters($min : lessLethalMinimum, $max : lessLethalMaximum)
+	$incidentObject : Incident(escalation != null && escalation>=$min && escalation<$max)
 then
 	modify($incidentObject){setResponse(PoliceResponseType.LESS_LETHAL_METHODS)};
-
 end;
 
 rule "Calculate escalation to Lethal Force"
 when 
-	$incidentObject : Incident(escalation != null && escalation>=PoliceResponseType.LESS_LETHAL_METHODS.limit);
+	$limiter : ResponseLimiters($min : lethalForceMinimum)
+	$incidentObject : Incident(escalation != null && escalation>=$min);
 then
 	modify($incidentObject){setResponse(PoliceResponseType.LETHAL_FORCE)};
+
+end;
+
+rule "Calculate escalation for Presence"
+when 
+	$limiter : ResponseLimiters($max : presenceMaximum)
+	$incidentObject : Incident(escalation != null && escalation<$max);
+then
+	modify($incidentObject){setResponse(PoliceResponseType.PRESENCE)};
 
 end;
 

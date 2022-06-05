@@ -11,10 +11,10 @@ import lombok.Setter;
 public class ResponseLimiters {
 	private Double lethalForceMinimum;
 	private Double lessLethalMaximum;
-	private Double lessLethalForceMinimum;
+	private Double lessLethalMinimum;
 	private Double emptyHandMaximum;
 	private Double emptyHandMinimum;
-	private Double VerbalizationMaximum;
-	private Double VerbalizationMinimum;
-	private Double PresenceMaximum;
+	private Double verbalizationMaximum;
+	private Double verbalizationMinimum;
+	private Double presenceMaximum;
 }

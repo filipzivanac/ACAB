@@ -37,7 +37,7 @@ public class IncidentService {
 		session.insert(li);
 		session.insert(inc);
 		session.fireAllRules();
-		System.out.println(li.getLethalForceMinimum());
+		System.out.println(li.getPresenceMaximum() + " " + li.getLethalForceMinimum()+" "+ inc.getEscalation());
 		return inc;
 	}
 	
