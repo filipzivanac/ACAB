@@ -1,17 +1,17 @@
 .centeringContainer{
   display: grid;
   place-items: center;
-  margin-top: 124px;
+  margin-top: 12px;
 }
 
-.x500Form {
+.incidentForm {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   place-items: center;
 }
 
-.x500Field{
+.incidentField{
   width: 100%;
   max-width: 300px;
   margin-top: 16px;

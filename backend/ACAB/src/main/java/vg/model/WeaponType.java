@@ -1,7 +1,7 @@
 package vg.model;
 
 public enum WeaponType {
-	NONE(1.0), BLUNT(1.3), SHARP(1.9), FIREARM(2.3);
+	NONE(0.1), BLUNT(0.5), SHARP(1), FIREARM(2);
 	
 	public final double coef;
 

@@ -1,11 +1,11 @@
 enum WeaponTypeEnum {
-  SHARP,
-  BLUNT,
-  FIREARM,
   UNARMED,
+  BLUNT,
+  SHARP,
+  FIREARM,
 };
 
-const weaponTypeEnumLabels = ["Sharp Weapon", "Blunt Weapon", "Firearm", "Unarmed" ];
+const weaponTypeEnumLabels = ["Unarmed", "Blunt Weapon", "Sharp Weapon", "Firearm",];
 
 export { WeaponTypeEnum };
 export { weaponTypeEnumLabels };

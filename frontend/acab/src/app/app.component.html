@@ -1,98 +1,81 @@
+<mat-toolbar color="primary"><a>Welcome to the POLICE MANUAL</a></mat-toolbar>
 <div class="centeringContainer">
   <form class="incidentForm">
     <mat-form-field class="incidentField" appearance="standard">
-      <mat-label>Country</mat-label>
+      <mat-label>Number of Cops</mat-label>
       <input
-        [(ngModel)]="csr.x500Name.country"
-        name="country"
+        [(ngModel)]="incident.cops"
+        name="cops"
         matInput
         class="incidentInput"
-        placeholder="RS"
+        type="number"
+        placeholder="eg. 1"
       />
-      <mat-hint>Input your Country name</mat-hint>
+      <mat-hint>Input Number of policemen on the field</mat-hint>
     </mat-form-field>
     <mat-form-field class="incidentField" appearance="standard">
-      <mat-label>State</mat-label>
+      <mat-label>Number of Criminals</mat-label>
       <input
-        [(ngModel)]="csr.x500Name.state"
-        name="state"
+        [(ngModel)]="incident.criminals"
+        name="criminals"
         matInput
         class="incidentInput"
-        placeholder="Juznobacki okrug"
+        type="number"
+        placeholder="eg. 1"
       />
-      <mat-hint>Input your State name</mat-hint>
+      <mat-hint>Input Number of criminals on the field</mat-hint>
     </mat-form-field>
     <mat-form-field class="incidentField" appearance="standard">
-      <mat-label>Locality</mat-label>
-      <input
-        [(ngModel)]="csr.x500Name.locale"
-        name="locality"
-        matInput
-        class="incidentInput"
-        placeholder="Novi Sad"
-      />
-      <mat-hint>Input your Locality</mat-hint>
-    </mat-form-field>
-    <mat-form-field class="incidentField" appearance="standard">
-      <mat-label>Organization</mat-label>
-      <input
-        [(ngModel)]="csr.x500Name.organization"
-        name="organization"
-        matInput
-        class="incidentInput"
-        placeholder="Fakultet tehnickih nauka"
-      />
-      <mat-hint>Input your Organization</mat-hint>
-    </mat-form-field>
-    <mat-form-field class="incidentField" appearance="standard">
-      <mat-label>Organizational Unit</mat-label>
-      <input
-        [(ngModel)]="csr.x500Name.organizationUnit"
-        name="organizationalUnit"
-        matInput
-        class="incidentInput"
-        placeholder="Departman za elektroteniku i racunarstvo"
-      />
-      <mat-hint>Input your Organizational Unit</mat-hint>
-    </mat-form-field>
-    <mat-form-field class="incidentField" appearance="standard">
-      <mat-label>Common Name</mat-label>
-      <input
-        [(ngModel)]="csr.x500Name.commonName"
-        name="commonName"
-        matInput
-        class="incidentInput"
-        placeholder="Dusan Hajduk"
-      />
-      <mat-hint>Input your Common Name</mat-hint>
-    </mat-form-field>
-    <mat-form-field class="incidentField" appearance="standard">
-      <mat-label>Email</mat-label>
-      <input
-        [(ngModel)]="csr.x500Name.email"
-        name="email"
-        matInput
-        class="incidentInput"
-        placeholder="hajduk.dusan@yahoo.com"
-      />
-      <mat-hint>Enter the email</mat-hint>
-    </mat-form-field>
-    <mat-form-field class="incidentField" appearance="standard">
-      <mat-label>Certificate Purpose</mat-label>
+      <mat-label>Weapon Type of Criminals</mat-label>
       <mat-select
         class="incidentInput"
-        [(ngModel)]="csr.purpose"
-        name="purpose"
+        [(ngModel)]="incident.weapon"
+        name="weapon"
       >
-        <mat-option
-          *ngFor="let purpose of certificatePurposeLabels; let i=index"
-          [value]="i"
-          >{{ purpose }}</mat-option
-        >
+        <mat-option *ngFor="let inc of incidentWeaponLabels; let i=index" [value]="i">{{
+          inc
+        }}</mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-stroked-button (click)="generateCSR()" color="primary">
-      Send
+    <mat-form-field class="incidentField" appearance="standard">
+      <mat-label>Police Response</mat-label>
+      <mat-select
+        class="incidentInput"
+        [(ngModel)]="incident.allreadyUsedPoliceResponse"
+        name="allreadyUsedPoliceResponse"
+      >
+        <mat-option *ngFor="let inc of incidentResponseLabels; let i=index" [value]="i">{{
+          inc
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <label id="suspectThreatIntentionRadioLabelId"
+      >Suspect Threat Intention:</label
+    >
+    <mat-radio-group
+      [(ngModel)]="incident.suspectThreatIntention"
+      class="radioForm"
+      aria-labelledby="suspectThreatIntentionRadioLabelId"
+      name="suspectThreatIntention"
+    >
+      <mat-radio-button class="radio" [value]="true">Yes</mat-radio-button>
+      <mat-radio-button class="radio" [value]="false">No</mat-radio-button>
+    </mat-radio-group>
+    <label id="responseWorkedRadioLabelId">Did the police Response Work:</label>
+    <mat-radio-group
+      [(ngModel)]="incident.responseWorked"
+      class="radioForm"
+      aria-labelledby="responseWorkedRadioLabelId"
+      name="responseWorked"
+    >
+      <mat-radio-button class="radio" [value]="true">Yes</mat-radio-button>
+      <mat-radio-button class="radio" [value]="false">No</mat-radio-button>
+    </mat-radio-group>
+    <button mat-stroked-button (click)="resolveIncident()" color="primary">
+      Resolve
     </button>
   </form>
+  <div style="margin-top: 24px;">
+    Response: <span>{{ response }}</span>
+  </div>
 </div>
