@@ -128,10 +128,11 @@ end;
 rule "Calculate escalation"
 
 when 
-	$incidentObject : Incident(response==null);
+    $incidentObject : Incident(response==null);
 then
-	modify($incidentObject){setEscalation(
-	3*$incidentObject.getCriminals()*$incidentObject.getWeapon().coef/$incidentObject.getCops() + $incidentObject.getAllreadyUsedPoliceResponse().limit)};
+    modify($incidentObject){setEscalation(
+    $incidentObject.getCriminals() * $incidentObject.getWeapon().coef / ($incidentObject.getCriminals() * $incidentObject.getWeapon().coef + $incidentObject.getCops()) * 100 + $incidentObject.getAllreadyUsedPoliceResponse().limit
+    )};
 
 end;
 

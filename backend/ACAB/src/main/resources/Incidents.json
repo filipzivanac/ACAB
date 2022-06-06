@@ -1,39 +1,80 @@
-{"incidents":[
-	{
-	"escalation":80,
-	"responseUsed": 4
-	},
-	{
-	"escalation":79,
-	"responseUsed": 3
-	},
-	{
-	"escalation":60,
-	"responseUsed": 3
-	},
-	{
-	"escalation":59,
-	"responseUsed": 2
-	},
-	{
-	"escalation":40,
-	"responseUsed": 2
-	},
-	{
-	"escalation":39,
-	"responseUsed": 1
-	},
-	{
-	"escalation":20,
-	"responseUsed": 1
-	},
-	
-	{
-	"escalation":19,
-	"responseUsed": 0
-	},
-	{
-	"escalation":0,
-	"responseUsed": 0
-	}
-]}
+{
+  "incidents": [
+    {
+      "escalation": 111,
+      "responseUsed": 4
+    },
+    {
+      "escalation": 93,
+      "responseUsed": 4
+    },
+    {
+      "escalation": 80,
+      "responseUsed": 4
+    },
+    {
+      "escalation": 79,
+      "responseUsed": 3
+    },
+    {
+      "escalation": 64,
+      "responseUsed": 3
+    },
+    {
+      "escalation": 61,
+      "responseUsed": 3
+    },
+    {
+      "escalation": 60,
+      "responseUsed": 3
+    },
+    {
+      "escalation": 59,
+      "responseUsed": 2
+    },
+    {
+      "escalation": 52,
+      "responseUsed": 2
+    },
+    {
+      "escalation": 43,
+      "responseUsed": 2
+    },
+    {
+      "escalation": 40,
+      "responseUsed": 2
+    },
+    {
+      "escalation": 39,
+      "responseUsed": 1
+    },
+    {
+      "escalation": 31,
+      "responseUsed": 1
+    },
+    {
+      "escalation": 26,
+      "responseUsed": 1
+    },
+    {
+      "escalation": 20,
+      "responseUsed": 1
+    },
+    {
+      "escalation": 19,
+      "responseUsed": 0
+    },
+    {
+      "escalation": 12,
+      "responseUsed": 0
+    },
+    {
+      "escalation": 3,
+      "responseUsed": 0
+    },
+    {
+      "escalation": 0,
+      "responseUsed": 0
+    }
+  ]
+}
